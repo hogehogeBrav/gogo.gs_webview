@@ -30,6 +30,7 @@ class ViewController: UIViewController, WKNavigationDelegate, UITabBarDelegate{
     let request = URLRequest(url: url!)
     webview.load(request)
     
+    // ProgressBar
     progressView.progressTintColor = colorArray[colorCnt]
     colorCnt = colorCnt + 1
     
@@ -56,6 +57,7 @@ class ViewController: UIViewController, WKNavigationDelegate, UITabBarDelegate{
         self.progressView.alpha = 1.0
       }
     }
+    
   }
   
   @IBAction func backButton(_ sender: Any) {
