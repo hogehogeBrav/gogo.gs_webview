@@ -56,11 +56,16 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" fixedFrame="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="UcP-MA-yMZ">
+                                <rect key="frame" x="0.0" y="81" width="390" height="4"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </progressView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Gg4-DW-QOF"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
+                        <outlet property="progressView" destination="UcP-MA-yMZ" id="aF7-ha-T83"/>
                         <outlet property="tabbar" destination="tDd-ow-JIW" id="cNs-4L-ggI"/>
                         <outlet property="webview" destination="pd8-g6-tfB" id="r9z-n3-xTm"/>
                     </connections>

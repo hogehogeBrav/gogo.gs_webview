@@ -8,10 +8,18 @@
 import UIKit
 import WebKit
 
-class ViewController: UIViewController , UITabBarDelegate{
+class ViewController: UIViewController, WKNavigationDelegate, UITabBarDelegate{
 
   @IBOutlet weak var webview: WKWebView!
+  @IBOutlet weak var progressView: UIProgressView!
   @IBOutlet weak var tabbar: UITabBar!
+  
+  private var observation: NSKeyValueObservation?
+  private var colorCnt = 0
+  private let colorArray: [UIColor] = [
+    .systemBlue,
+    .systemBlue
+  ]
   
   
   override func viewDidLoad() {
@@ -21,6 +29,33 @@ class ViewController: UIViewController , UITabBarDelegate{
     let url = URL(string: "https://gogo.gs/")
     let request = URLRequest(url: url!)
     webview.load(request)
+    
+    progressView.progressTintColor = colorArray[colorCnt]
+    colorCnt = colorCnt + 1
+    
+    observation = webview.observe(\.estimatedProgress, options: .new){_, change in
+      print("progress=\(String(describing: change.newValue))")
+      self.progressView.setProgress(Float(change.newValue!), animated: true)
+      
+      if change.newValue! >= 1.0 {
+        UIView.animate(withDuration: 1.0,
+                       delay: 0.0,
+                       options: [.curveEaseIn],
+                       animations: {
+                        self.progressView.alpha = 0.0
+        }, completion: { (finished: Bool) in
+          self.progressView.progressTintColor = self.colorArray[self.colorCnt]
+          self.colorCnt = self.colorCnt + 1
+          if self.colorCnt >= self.colorArray.count {
+            self.colorCnt = 0
+          }
+          self.progressView.setProgress(0, animated: false)
+        })
+      }
+      else {
+        self.progressView.alpha = 1.0
+      }
+    }
   }
   
   @IBAction func backButton(_ sender: Any) {
