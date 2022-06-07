@@ -23,6 +23,7 @@ class ViewController: UIViewController, WKNavigationDelegate, UITabBarDelegate{
   
   
   override func viewDidLoad() {
+    webview.scrollView.bounces = false;
     super.viewDidLoad()
     tabbar.delegate = self
     // Do any additional setup after loading the view.
